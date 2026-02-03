@@ -1,13 +1,58 @@
-import { defineBackend } from '@aws-amplify/backend';
-import { auth } from './auth/resource';
-import { storage, secondaryStorage } from './storage/resource';
+import { defineBackend } from "@aws-amplify/backend";
+import { auth } from "./auth/resource";
+import { Policy, PolicyStatement, Effect } from "aws-cdk-lib/aws-iam";
 
+const backend = defineBackend({
+  auth,
+});
+
+const customBucketName = "replica-test-1vp-s3";
+
+backend.addOutput({
+  version: "1.3",
+  storage: {
+    aws_region: "ap-south-1",
+    bucket_name: customBucketName,
+    buckets: [
+      {
+        name: customBucketName,
+        bucket_name: customBucketName,
+        aws_region: "ap-south-1",
+        paths: {
+          "invoices/*": {
+            admin: ["get", "list", "write"]
+          }
+        },
+      },
+    ],
+  },
+});
 
 /**
- * @see https://docs.amplify.aws/react/build-a-backend/ to add storage, functions, and more
+ * Define an inline policy to attach to Admin user role
+ * This policy defines how authenticated users can access your existing bucket
  */
-defineBackend({
-  auth,
-  storage, 
-  secondaryStorage
+const adminPolicy = new Policy(backend.stack, "customBucketAdminPolicy", {
+  statements: [
+    new PolicyStatement({
+      effect: Effect.ALLOW,
+      actions: ["s3:GetObject", "s3:PutObject"],
+      resources: [`arn:aws:s3:::${customBucketName}/invoices/*`],
+    }),
+    new PolicyStatement({
+      effect: Effect.ALLOW,
+      actions: ["s3:ListBucket"],
+      resources: [
+        `arn:aws:s3:::${customBucketName}`
+      ],
+      conditions: {
+        StringLike: {
+          "s3:prefix": ["invoices/*", "invoices/"],
+        },
+      },
+    }),
+  ],
 });
+
+// Add the policies to the admin user role
+backend.auth.resources.groups["admin"].role.attachInlinePolicy(adminPolicy);
