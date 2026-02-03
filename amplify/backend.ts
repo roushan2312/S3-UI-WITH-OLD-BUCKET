@@ -18,11 +18,11 @@ backend.addOutput({
         name: customBucketName,
         bucket_name: customBucketName,
         aws_region: "ap-south-1",
-        // paths: {
-        //   "invoices/*": {
-        //     admin: ["get", "list", "write"]
-        //   }
-        // },
+        paths: {
+          "invoices/*": {
+            admin: ["get", "list", "write"]
+          }
+        },
       },
     ],
   },
