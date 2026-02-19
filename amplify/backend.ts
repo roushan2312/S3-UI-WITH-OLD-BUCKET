@@ -18,6 +18,15 @@ backend.addOutput({
         name: customBucketName,
         bucket_name: customBucketName,
         aws_region: "ap-south-1",
+        paths: {
+          // "public/*": {
+          //   guest: ["get", "list"],
+          //   authenticated: ["get", "list", "write", "delete"],
+          // },
+          "invoices/*": {
+            groupsadmin: ["get", "list", "write", "delete"],
+            // authenticated: ["get", "list", "write", "delete"],
+          },
       },
     ],
   },
