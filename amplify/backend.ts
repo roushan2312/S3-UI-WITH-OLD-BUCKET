@@ -118,7 +118,7 @@ const adminPolicy = new Policy(backend.stack, "customBucketAdminPolicy", {
     new PolicyStatement({
       effect: Effect.ALLOW,
       actions: ["s3:GetObject", "s3:PutObject", "s3:DeleteObject"],
-      resources: [`arn:aws:s3:::${customBucketName}/invoices/*`],
+      resources: [`arn:aws:s3:::${customBucketName}/*`],
     }),
     new PolicyStatement({
       effect: Effect.ALLOW,
