@@ -45,6 +45,7 @@ backend.addOutput({
           "invoices/*": {
             groupsadmin: ["get", "list", "write", "delete"],
             authenticated: ["get", "list", "write", "delete"],
+            admin: ["get", "list", "write", "delete"],
           },
         },
       },
