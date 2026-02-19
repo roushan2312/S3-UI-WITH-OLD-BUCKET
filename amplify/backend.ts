@@ -18,17 +18,11 @@ backend.addOutput({
         name: customBucketName,
         bucket_name: customBucketName,
         aws_region: "ap-south-1",
-        paths: {
-          "invoices/*": {
-            groups: {
-                admin: ["get", "list", "write", "delete"]
-              }
-          },
-        },
       },
     ],
   },
 });
+
 
 /**
  * Define an inline policy to attach to Admin user role
