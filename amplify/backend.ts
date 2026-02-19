@@ -28,6 +28,7 @@ backend.addOutput({
             // authenticated: ["get", "list", "write", "delete"],
           },
       },
+    },
     ],
   },
 });
