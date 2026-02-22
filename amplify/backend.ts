@@ -6,8 +6,8 @@ const backend = defineBackend({
   auth,
 });
 
-const customBucketName = "replica-test-1vp-s3"; 
-const customBucketName2 = "1vp-test-textract";
+const customBucketName = "ai-description"; 
+const customBucketName2 = "junk-file";
 
 backend.addOutput({
   version: "1.3",
@@ -55,11 +55,6 @@ const adminPolicy = new Policy(backend.stack, "customBucketAdminPolicy", {
         `arn:aws:s3:::${customBucketName}/invoices/*`,
         `arn:aws:s3:::${customBucketName2}/test-folder/*`
       ],
-      conditions: {
-        StringLike: {
-          "s3:prefix": ["invoices/*", "invoices/", "test-folder/*", "test-folder/"],
-        },
-      },
     }),
 
     new PolicyStatement({
