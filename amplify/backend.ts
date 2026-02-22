@@ -63,12 +63,7 @@ const adminPolicy = new Policy(backend.stack, "customBucketAdminPolicy", {
       resources: [
         `arn:aws:s3:::${customBucketName}`,
         `arn:aws:s3:::${customBucketName2}`
-      ],
-      conditions: {
-        StringLike: {
-          "s3:prefix": ["invoices/*", "invoices/", "test-folder/*", "test-folder/"],
-        },
-      },
+      ]
     }),
   ],
 });
