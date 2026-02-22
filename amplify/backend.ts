@@ -19,23 +19,23 @@ backend.addOutput({
         name: customBucketName,
         bucket_name: customBucketName,
         aws_region: "ap-south-1",
-        paths: {
-          "invoices/*": {
-            groupsadmin: ["get", "list", "write", "delete"],
-            groupsops: ["get", "list", "write"],
-          },
-        },
+        // paths: {
+        //   "invoices/*": {
+        //     groupsadmin: ["get", "list", "write", "delete"],
+        //     groupsops: ["get", "list", "write"],
+        //   },
+        // },
       },
       {
         name: customBucketName2,
         bucket_name: customBucketName2,
         aws_region: "ap-south-1",
-        paths: {
-          "test-folder/*": {
-            groupsadmin: ["get", "list", "write", "delete"],
-            groupsops: ["get", "list", "write"],
-          },
-        },
+        // paths: {
+        //   "test-folder/*": {
+        //     groupsadmin: ["get", "list", "write", "delete"],
+        //     groupsops: ["get", "list", "write"],
+        //   },
+        // },
       },
     ],
   },
