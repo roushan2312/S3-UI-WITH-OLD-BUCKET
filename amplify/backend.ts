@@ -20,17 +20,17 @@ backend.addOutput({
         name: customBucketName,
         bucket_name: customBucketName,
         aws_region: "ap-south-1",
-        paths: {
-          // "public/*": {
-          //   guest: ["get", "list"],
-          //   authenticated: ["get", "list", "write", "delete"],
-          // },
-          "invoices/*": {
-            groupsadmin: ["get", "list", "write", "delete"],
-              groupsops: ["get", "list", "write"],
-            // authenticated: ["get", "list", "write", "delete"],
-          },
-      },
+      //   paths: {
+      //     // "public/*": {
+      //     //   guest: ["get", "list"],
+      //     //   authenticated: ["get", "list", "write", "delete"],
+      //     // },
+      //     "invoices/*": {
+      //       groupsadmin: ["get", "list", "write", "delete"],
+      //         groupsops: ["get", "list", "write"],
+      //       // authenticated: ["get", "list", "write", "delete"],
+      //     },
+      // },
       },
       ],
     },
@@ -42,17 +42,17 @@ backend.addOutput({
         name: customBucketName2,
         bucket_name: customBucketName2,
         aws_region: "ap-south-1",
-        paths: {
-          // "public/*": {
-          //   guest: ["get", "list"],
-          //   authenticated: ["get", "list", "write", "delete"],
-          // },
-          "test-folder/*": {
-            groupsadmin: ["get", "list", "write", "delete"],
-              groupsops: ["get", "list", "write"],
-            // authenticated: ["get", "list", "write", "delete"],
-          },
-      },
+      //   paths: {
+      //     // "public/*": {
+      //     //   guest: ["get", "list"],
+      //     //   authenticated: ["get", "list", "write", "delete"],
+      //     // },
+      //     "test-folder/*": {
+      //       groupsadmin: ["get", "list", "write", "delete"],
+      //         groupsops: ["get", "list", "write"],
+      //       // authenticated: ["get", "list", "write", "delete"],
+      //     },
+      // },
       },
       ],
     },
