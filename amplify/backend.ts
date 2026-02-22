@@ -16,44 +16,34 @@ backend.addOutput({
     aws_region: "ap-south-1",
     bucket_name: customBucketName,
     buckets: [
-      {
-        name: customBucketName,
-        bucket_name: customBucketName,
-        aws_region: "ap-south-1",
-      //   paths: {
-      //     // "public/*": {
-      //     //   guest: ["get", "list"],
-      //     //   authenticated: ["get", "list", "write", "delete"],
-      //     // },
-      //     "invoices/*": {
-      //       groupsadmin: ["get", "list", "write", "delete"],
-      //         groupsops: ["get", "list", "write"],
-      //       // authenticated: ["get", "list", "write", "delete"],
-      //     },
-      // },
-      },
+        {
+          name: customBucketName,
+          bucket_name: customBucketName,
+          aws_region: "ap-south-1",
+          paths: {
+            "invoices/*": {
+              groupsadmin: ["get", "list", "write", "delete"],
+                groupsops: ["get", "list", "write"],
+            },
+          },
+        },
       ],
     },
     {
     aws_region: "ap-south-1",
     bucket_name: customBucketName2,
     buckets: [
-      {
-        name: customBucketName2,
-        bucket_name: customBucketName2,
-        aws_region: "ap-south-1",
-      //   paths: {
-      //     // "public/*": {
-      //     //   guest: ["get", "list"],
-      //     //   authenticated: ["get", "list", "write", "delete"],
-      //     // },
-      //     "test-folder/*": {
-      //       groupsadmin: ["get", "list", "write", "delete"],
-      //         groupsops: ["get", "list", "write"],
-      //       // authenticated: ["get", "list", "write", "delete"],
-      //     },
-      // },
-      },
+        {
+          name: customBucketName2,
+          bucket_name: customBucketName2,
+          aws_region: "ap-south-1",
+          paths: {
+            "test-folder/*": {
+              groupsadmin: ["get", "list", "write", "delete"],
+                groupsops: ["get", "list", "write"],
+            },
+          },
+        },
       ],
     },
   ]
@@ -66,7 +56,6 @@ backend.addOutput({
  */
 const adminPolicy = new Policy(backend.stack, "customBucketAdminPolicy", {
   statements: [
-    // Object level access (ONLY invoices folder)
     new PolicyStatement({
       effect: Effect.ALLOW,
       actions: ["s3:GetObject", "s3:PutObject", "s3:DeleteObject"],
@@ -76,7 +65,6 @@ const adminPolicy = new Policy(backend.stack, "customBucketAdminPolicy", {
       ],
     }),
 
-    // Bucket level permission (needed for listing)
     new PolicyStatement({
       effect: Effect.ALLOW,
       actions: ["s3:ListBucket"],
@@ -96,7 +84,6 @@ const adminPolicy = new Policy(backend.stack, "customBucketAdminPolicy", {
 
 const OPSPolicy = new Policy(backend.stack, "customBucketOPSPolicy", {
   statements: [
-    // Object level access (ONLY invoices folder)
     new PolicyStatement({
       effect: Effect.ALLOW,
       actions: ["s3:GetObject", "s3:PutObject", ],
@@ -106,7 +93,6 @@ const OPSPolicy = new Policy(backend.stack, "customBucketOPSPolicy", {
       ],
     }),
 
-    // Bucket level permission (needed for listing)
     new PolicyStatement({
       effect: Effect.ALLOW,
       actions: ["s3:ListBucket"],
