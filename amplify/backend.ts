@@ -48,22 +48,23 @@ backend.addOutput({
  */
 const adminPolicy = new Policy(backend.stack, "customBucketAdminPolicy", {
   statements: [
-    new PolicyStatement({
-      effect: Effect.ALLOW,
-      actions: ["s3:GetObject", "s3:PutObject", "s3:DeleteObject"],
-      resources: [
-        `arn:aws:s3:::${customBucketName}/invoices/*`,
-        `arn:aws:s3:::${customBucketName2}/test-folder/*`
-      ],
-    }),
-
+    
     new PolicyStatement({
       effect: Effect.ALLOW,
       actions: ["s3:ListBucket"],
       resources: [
         `arn:aws:s3:::${customBucketName}`,
         `arn:aws:s3:::${customBucketName2}`
-      ]
+      ],
+    }),
+
+    new PolicyStatement({
+      effect: Effect.ALLOW,
+      actions: ["s3:GetObject", "s3:PutObject", "s3:DeleteObject"],
+      resources: [
+        `arn:aws:s3:::${customBucketName}/*`,
+        `arn:aws:s3:::${customBucketName2}/*`
+      ],
     }),
   ],
 });
@@ -73,25 +74,20 @@ const OPSPolicy = new Policy(backend.stack, "customBucketOPSPolicy", {
   statements: [
     new PolicyStatement({
       effect: Effect.ALLOW,
-      actions: ["s3:GetObject", "s3:PutObject", ],
-      resources: [
-        `arn:aws:s3:::${customBucketName}/invoices/*`,
-        `arn:aws:s3:::${customBucketName2}/test-folder/*`
-      ],
-    }),
-
-    new PolicyStatement({
-      effect: Effect.ALLOW,
       actions: ["s3:ListBucket"],
       resources: [
         `arn:aws:s3:::${customBucketName}`,
         `arn:aws:s3:::${customBucketName2}`
       ],
-      conditions: {
-        StringLike: {
-          "s3:prefix": ["invoices/*", "invoices/", "test-folder/*", "test-folder/"],
-        },
-      },
+    }),
+
+    new PolicyStatement({
+      effect: Effect.ALLOW,
+      actions: ["s3:GetObject", "s3:PutObject"],
+      resources: [
+        `arn:aws:s3:::${customBucketName}/*`,
+        `arn:aws:s3:::${customBucketName2}/*`
+      ],
     }),
   ],
 });
