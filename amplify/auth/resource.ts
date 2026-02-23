@@ -5,7 +5,7 @@ export const auth = referenceAuth({
   identityPoolId: 'ap-south-1:099654cd-840a-4f7b-90fc-5981764a269b', // Your existing Identity Pool ID
   authRoleArn: 'arn:aws:iam::137068221002:role/service-role/new-role-cognito-s3-ui', // Existing Auth Role
   unauthRoleArn: 'arn:aws:iam::137068221002:role/service-role/guest-role', // Existing Unauth Role
-  userPoolClientId: '3uq1a3hifu8m49n6b9p9mnk7pp', // Your existing App Client ID
+  userPoolClientId: 'oh1r6jvq692e98rp521k6p44g', // Your existing App Client ID
   groups: {
     admin: 'arn:aws:iam::137068221002:role/admin-role-s3-ui', // Maps the 'admin' reference to your existing 'admin' group name
   },
