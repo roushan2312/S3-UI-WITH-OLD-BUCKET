@@ -36,11 +36,11 @@ backend.addOutput({
         aws_region: "ap-south-1",
         //@ts-expect-error amplify backend type issue https://github.com/aws-amplify/amplify-backend/issues/2569
         paths: {
-          "public/*": {
-            guest: ["get", "list"],
-            authenticated: ["get", "list", "write", "delete"],
-          },
-          "admin/*": {
+          // "public/*": {
+            // guest: ["get", "list"],
+          //   authenticated: ["get", "list", "write", "delete"],
+          // },
+          "invoices/*": {
             groupsadmin: ["get", "list", "write", "delete"],
             authenticated: ["get", "list", "write", "delete"],
           },
@@ -54,25 +54,25 @@ backend.addOutput({
  * Define an inline policy to attach to Amplify's un-auth role
  * This policy defines how unauthenticated users can access your existing bucket
  */
-const unauthPolicy = new Policy(backend.stack, "customBucketUnauthPolicy", {
-  statements: [
-    new PolicyStatement({
-      effect: Effect.ALLOW,
-      actions: ["s3:GetObject"],
-      resources: [`arn:aws:s3:::${customBucketName}/public/*`],
-    }),
-    new PolicyStatement({
-      effect: Effect.ALLOW,
-      actions: ["s3:ListBucket"],
-      resources: [`arn:aws:s3:::${customBucketName}`],
-      conditions: {
-        StringLike: {
-          "s3:prefix": ["public/*", "public/"],
-        },
-      },
-    }),
-  ],
-});
+// const unauthPolicy = new Policy(backend.stack, "customBucketUnauthPolicy", {
+//   statements: [
+//     new PolicyStatement({
+//       effect: Effect.ALLOW,
+//       actions: ["s3:GetObject"],
+//       resources: [`arn:aws:s3:::${customBucketName}/public/*`],
+//     }),
+//     new PolicyStatement({
+//       effect: Effect.ALLOW,
+//       actions: ["s3:ListBucket"],
+//       resources: [`arn:aws:s3:::${customBucketName}`],
+//       conditions: {
+//         StringLike: {
+//           "s3:prefix": ["public/*", "public/"],
+//         },
+//       },
+//     }),
+//   ],
+// });
 
 /**
  * Define an inline policy to attach to Amplify's auth role
@@ -82,9 +82,9 @@ const authPolicy = new Policy(backend.stack, "customBucketAuthPolicy", {
   statements: [
     new PolicyStatement({
       effect: Effect.ALLOW,
-      actions: ["s3:GetObject", "s3:PutObject", "s3:DeleteObject"],
+      actions: ["s3:GetObject", "s3:PutObject"],
       resources: [
-        `arn:aws:s3:::${customBucketName}/public/*`,
+        // `arn:aws:s3:::${customBucketName}/public/*`,
         `arn:aws:s3:::${customBucketName}/admin/*`,
       ],
     }),
@@ -97,7 +97,7 @@ const authPolicy = new Policy(backend.stack, "customBucketAuthPolicy", {
       ],
       conditions: {
         StringLike: {
-          "s3:prefix": ["public/*", "public/", "admin/*", "admin/"],
+          "s3:prefix": [ "invoices/*", "invoices/"],
         },
       },
     }),
@@ -113,7 +113,7 @@ const adminPolicy = new Policy(backend.stack, "customBucketAdminPolicy", {
     new PolicyStatement({
       effect: Effect.ALLOW,
       actions: ["s3:GetObject", "s3:PutObject", "s3:DeleteObject"],
-      resources: [`arn:aws:s3:::${customBucketName}/admin/*`],
+      resources: [`arn:aws:s3:::${customBucketName}/invoices/*`],
     }),
     new PolicyStatement({
       effect: Effect.ALLOW,
@@ -124,7 +124,7 @@ const adminPolicy = new Policy(backend.stack, "customBucketAdminPolicy", {
       ],
       conditions: {
         StringLike: {
-          "s3:prefix": ["admin/*", "admin/"],
+          "s3:prefix": ["invoices/*", "invoices/"],
         },
       },
     }),
@@ -132,9 +132,9 @@ const adminPolicy = new Policy(backend.stack, "customBucketAdminPolicy", {
 });
 
 // Add the policies to the unauthenticated user role
-backend.auth.resources.unauthenticatedUserIamRole.attachInlinePolicy(
-  unauthPolicy
-);
+// backend.auth.resources.unauthenticatedUserIamRole.attachInlinePolicy(
+//   unauthPolicy
+// );
 
 // Add the policies to the authenticated user role
 backend.auth.resources.authenticatedUserIamRole.attachInlinePolicy(authPolicy);
