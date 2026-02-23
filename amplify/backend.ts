@@ -85,7 +85,7 @@ const authPolicy = new Policy(backend.stack, "customBucketAuthPolicy", {
       actions: ["s3:GetObject", "s3:PutObject"],
       resources: [
         // `arn:aws:s3:::${customBucketName}/public/*`,
-        `arn:aws:s3:::${customBucketName}/admin/*`,
+        `arn:aws:s3:::${customBucketName}/invoices/*`,
       ],
     }),
     new PolicyStatement({
