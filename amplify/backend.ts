@@ -26,6 +26,17 @@ backend.addOutput({
           },
         },
       } as any,
+      {
+        name: "1vp-test-textract",
+        bucket_name: "1vp-test-textract",
+        aws_region: "ap-south-1",
+        paths: {
+          "test-folder/*": {
+            // groupsadmin: ["get", "list", "write", "delete"],
+            authenticated: ["get", "list", "write", "delete"],
+          },
+        },
+      } as any,
     ],
   },
 });
