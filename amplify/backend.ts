@@ -22,7 +22,7 @@ backend.addOutput({
         paths: {
           "invoices/*": {
             groupsadmin: ["get", "list", "write", "delete"],
-            authenticated: ["get", "list", "write", "delete"],
+            // authenticated: ["get", "list", "write", "delete"],
           },
         },
       } as any,
