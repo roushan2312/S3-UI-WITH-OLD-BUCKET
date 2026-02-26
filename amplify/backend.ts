@@ -21,7 +21,7 @@ backend.addOutput({
         aws_region: "ap-south-1",
         paths: {
           "invoices/*": {
-            groupsadmin: ["get", "list", "write", "delete"],
+            // groupsadmin: ["get", "list", "write", "delete"],
             authenticated: ["get", "list", "write", "delete"],
           },
         },
