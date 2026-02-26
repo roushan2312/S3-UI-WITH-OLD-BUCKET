@@ -6,7 +6,8 @@ const backend = defineBackend({
   auth,
 });
 
-const customBucketName = "ai-description";
+const customBucketName = process.env.BUCKET_NAME;
+// const customBucketName = "ai-description";
 
 // 1. Tell Amplify about the bucket for the frontend to see it
 backend.addOutput({
@@ -25,18 +26,7 @@ backend.addOutput({
             authenticated: ["get", "list", "write", "delete"],
           },
         },
-      } as any,
-      {
-        name: "1vp-test-textract",
-        bucket_name: "1vp-test-textract",
-        aws_region: "ap-south-1",
-        paths: {
-          "test-folder/*": {
-            // groupsadmin: ["get", "list", "write", "delete"],
-            authenticated: ["get", "list", "write", "delete"],
-          },
-        },
-      } as any,
+      } as any
     ],
   },
 });
